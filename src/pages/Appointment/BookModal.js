@@ -9,6 +9,7 @@ const BookModal = ({ date, book, setBook }) => {
         const phone = event.target.phone.value;
         const email = event.target.email.value;
         const bookitem = book.name;
+        console.log(slot, name, phone, email, bookitem);
         setBook(null)
     }
 
