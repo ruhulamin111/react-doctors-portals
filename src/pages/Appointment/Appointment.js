@@ -1,9 +1,11 @@
 import React from 'react';
+import DateBanner from './DateBanner';
 
 const Appointment = () => {
     return (
         <div>
-            <h2>appointment</h2>
+            <DateBanner></DateBanner>
+
         </div>
     );
 };
