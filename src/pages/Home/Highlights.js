@@ -8,6 +8,7 @@ const Highlights = () => {
 
     return (
         <div>
+            <h1 className="text-4xl text-center font-bold">Services we provided</h1>
             <div className='grid grid-cols-1 lg:grid-cols-3 gap-10 hero-content mx-auto mb-10 '>
                 <div className="hero-content flex-col rounded-xl">
                     <img src={fluoride} className="max-w-sm rounded-lg " alt='' />
