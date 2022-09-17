@@ -14,8 +14,8 @@ const UserOpinion = ({ comment }) => {
                     </div>
                 </div>
                 <div>
-                    <h1>{comment.name}</h1>
-                    <h1>{comment.address}</h1>
+                    <h1 className='font-medium text-lg '>{comment.name}</h1>
+                    <h1 className='font-medium text-lg py-1'>{comment.address}</h1>
 
                 </div>
             </div>
