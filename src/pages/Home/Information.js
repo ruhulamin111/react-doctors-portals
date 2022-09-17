@@ -6,7 +6,7 @@ import phone from '../../assets/icons/phone.svg';
 const Information = () => {
 
     return (
-        <div className='grid grid-cols-1 lg:grid-cols-3 gap-10 mb-10 '>
+        <div className='grid grid-cols-1 lg:grid-cols-3 gap-10 mb-10 w-11/12 mx-auto'>
             <div className="hero-content flex-col lg:flex-row bg-gradient-to-r from-secondary to-primary rounded-xl py-10">
                 <img src={location} className="max-w-sm rounded-lg " alt='' />
                 <div>

@@ -28,7 +28,7 @@ const User = () => {
     ]
 
     return (
-        <div className='my-10'>
+        <div className='my-10 w-11/12 mx-auto'>
             <div className='flex justify-between '>
                 <div>
                     <h2 className="font-bold text-xl text-secondary">Testimonials</h2>

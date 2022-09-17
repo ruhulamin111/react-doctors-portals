@@ -9,7 +9,7 @@ import User from './User';
 
 const Home = () => {
     return (
-        <div className='w-11/12 mx-auto'>
+        <div className=''>
             <Banner></Banner>
             <Information></Information>
             <Highlights></Highlights>

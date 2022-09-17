@@ -7,7 +7,7 @@ import whitening from '../../assets/images/whitening.png';
 const Highlights = () => {
 
     return (
-        <div>
+        <div className='w-11/12 mx-auto'>
             <h1 className="text-4xl text-center font-bold my-8">Services we provided</h1>
             <div className='grid grid-cols-1 lg:grid-cols-3 gap-10  mb-10 '>
                 <div className="hero-content flex-col rounded-xl">
