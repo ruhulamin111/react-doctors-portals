@@ -1,13 +1,21 @@
 import React from 'react';
 
-const AppointItem = ({ service }) => {
+const AppointItem = ({ service, setBook }) => {
 
     return (
-        <div>
-            <h1 className='text-2xl font-semibold mb-5 '>{service.name}</h1>
-            <h1 className='mb-5 font-medium'>Available time : </h1>
-            <button className="btn btn-primary bg-gradient-to-r from-secondary to-primary ">Book now</button>
-
+        <div className="card shadow-lg text-primary-content">
+            <div className="card-body">
+                <h2 className="card-title">{service.name}</h2>
+                <p>Available Space {service.slots.length}</p>
+                <p>Visit 08:00 AM to 12:00 PM</p>
+                <div className="card-actions justify-end">
+                    <label htmlFor='book-modal'
+                        disabled={service.slots.length === 0}
+                        className="btn btn-primary"
+                        onClick={() => setBook(service)}
+                    >Buy Now</label>
+                </div>
+            </div>
         </div>
     );
 };
