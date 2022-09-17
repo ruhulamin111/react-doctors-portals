@@ -10,7 +10,7 @@ const BookAppointment = ({ date }) => {
     const [book, setBook] = useState(null)
 
     useEffect(() => {
-        fetch('services.json')
+        fetch('http://localhost:5000/services')
             .then(res => res.json())
             .then(data => setServices(data))
     }, [])
@@ -26,7 +26,7 @@ const BookAppointment = ({ date }) => {
                         setBook={setBook}
                     ></AppointItem>)
                 }
-                {book && <BookModal date={date} book={book}></BookModal>}
+                {book && <BookModal date={date} book={book} setBook={setBook}></BookModal>}
             </div>
 
         </div>
