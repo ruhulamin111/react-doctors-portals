@@ -6,8 +6,8 @@ const Doctor = () => {
     return (
         <section className='my-20' style={{ background: `url(${bgdoctor})` }} >
             <div className="hero ">
-                <div className="hero-content flex-col lg:flex-row gap-20">
-                    <img src={doctor} className="lg:max-w-lg max-w-sm rounded-lg shadow-xl mt-[-100px] mb-[-16px]" alt='' />
+                <div className="hero-content flex-col sm lg:flex-row gap-20">
+                    <img src={doctor} className="lg:max-w-lg hidden lg:block rounded-lg shadow-xl mt-[-100px] mb-[-16px]" alt='' />
                     <div className='text-white'>
                         <h1 className="text-xl font-bold py-4">Specalist</h1>
                         <h1 className="text-5xl font-bold">Exceptional Dental Care, on Your Terms</h1>
