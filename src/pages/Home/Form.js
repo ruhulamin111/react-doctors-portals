@@ -3,7 +3,7 @@ import React from 'react';
 const Form = () => {
 
     return (
-        <div className='bg-accent py-5'>
+        <div className='bg-accent  py-5'>
             <h1 className="text-2xl font-bold text-center my-2 text-white">Stay connect with us</h1>
             <div className="lg:w-5/12 sm:w-full mx-auto">
                 <div className="card-body">

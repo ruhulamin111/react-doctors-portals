@@ -7,6 +7,7 @@ import About from './pages/About/About';
 import Reviews from './pages/Reviews/Reviews';
 import Contactus from './pages/Contactus/Contactus';
 import Signin from './pages/Signin/Signin';
+import Footer from './pages/Footer/Footer';
 
 
 function App() {
@@ -22,8 +23,8 @@ function App() {
         <Route path='/contactus' element={<Contactus></Contactus>}></Route>
         <Route path='/signin' element={<Signin></Signin>}></Route>
 
-
       </Routes>
+      <Footer></Footer>
 
     </div>
   );
