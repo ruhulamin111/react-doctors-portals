@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
 
     return (
-        <div className="navbar bg-primary ">
-            <div className="navbar-start">
+        <div className='navbar bg-primary h-20'>
+            <div className="navbar-start ">
                 <div className="dropdown">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
@@ -21,7 +21,7 @@ const Navbar = () => {
                 </div>
                 <Link className="btn btn-ghost normal-case text-2xl font-medium" to='/'>Doctors Portals</Link>
             </div>
-            <div className="navbar-end hidden lg:flex">
+            <div className="navbar-end hidden lg:flex ">
                 <ul className="menu menu-horizontal p-0  ">
                     <li><Link to='/home'>Home</Link></li>
                     <li><Link to='/about'>About</Link></li>
@@ -31,6 +31,7 @@ const Navbar = () => {
                     <li><Link to='/signin'>Sign in</Link></li>
                 </ul>
             </div>
+
         </div>
     );
 };
