@@ -23,9 +23,10 @@ const Signin = () => {
     const onSubmit = (data) => {
         console.log(data)
         signInWithEmailAndPassword(data.email, data.password)
-        navigate(from, { replace: true })
     };
-
+    if (user || gUser) {
+        navigate(from, { replace: true })
+    }
     // const handleSubmit = (event) => {
     //     event.preventDefault()
     //     const email = event.target.email.value;

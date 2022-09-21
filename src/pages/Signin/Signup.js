@@ -15,13 +15,13 @@ const Signup = () => {
     if (gLoadding || loading) {
         return <Loading></Loading>
     }
-
     const onSubmit = (data) => {
         console.log(data)
         createUserWithEmailAndPassword(data.email, data.password)
-        navigate(from, { replace: true })
     };
-
+    if (user || gUser) {
+        navigate(from, { replace: true })
+    }
     // const handleSubmit = (event) => {
     //     event.preventDefault()
     //     const email = event.target.email.value;
