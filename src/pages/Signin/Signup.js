@@ -1,31 +1,36 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import { useForm } from "react-hook-form";
 
-
-
-const Signin = () => {
+const Signup = () => {
     const [signInWithGoogle] = useSignInWithGoogle(auth);
-    const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
+    const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
+    const { register, formState: { errors }, handleSubmit } = useForm();
 
     // const handleSubmit = (event) => {
     //     event.preventDefault()
     //     const email = event.target.email.value;
     //     const password = event.target.password.value;
-    //     signInWithEmailAndPassword(email, password)
-    //     event.target.reset()
+    //     const confirmpassword = event.target.confirmpassword.value;
+    //     if (password === confirmpassword) {
+    //         createUserWithEmailAndPassword(email, password)
+    //         event.target.reset()
+    //     }
     // }
-    const { register, formState: { errors }, handleSubmit } = useForm();
+
+    const onSubmit = (data) => {
+        console.log(data)
+    };
 
 
     return (
-        <div className='flex justify-center h-screen items-center'>
+        <div className='flex justify-center items-center'>
             <div className="card w-96 bg-base-100 shadow-xl py-4">
                 <div className="card-body items-center text-center">
-                    <h2 className="card-title mb-4">Sign in</h2>
-                    <form onSubmit={handleSubmit} className=' space-'>
+                    <h2 className="card-title mb-4">Sign up</h2>
+                    <form onSubmit={handleSubmit(onSubmit)} className='w-full'>
                         <div className="form-control ">
                             <label className="label">
                                 <span className="label-text">Email </span>
@@ -58,9 +63,26 @@ const Signin = () => {
                             </label>
                         </div>
 
-                        <input type='submit' value='Sign in' className="btn btn-accent w-full mt-4"></input>
+                        <div className="form-control w-full max-w-xs">
+                            <label className="label">
+                                <span className="label-text">Confirm Password </span>
+                            </label>
+                            <input type="text" placeholder="Email" className="input input-bordered w-full max-w-xs"
+                                {...register("confirmpassword", {
+                                    required: { value: true, message: 'Confirm password is required' },
+                                    pattern: { value: /{>>8,20}/, message: 'Password is not match' }
+                                })}
+                            />
+                            <label className="label">
+                                {errors.confirmpassword?.type === 'required' && <span className="label-text-alt">{errors.confirmpassword.message}</span>}
+                                {errors.confirmpassword?.type === 'pattern' && <span className="label-text-alt">{errors.confirmpassword.message}</span>}
+                            </label>
+                        </div>
+
+                        <input type='submit' value='Sign up' className="btn btn-accent w-full mt-4"></input>
                     </form>
-                    <p className='pt-2'>New to Doctors Portals? <Link className='text-secondary' to='/signup'>Create an account</Link></p>
+
+                    <p className='pt-2'>Have an account? <Link className='text-secondary' to='/signin'>Sign in please</Link></p>
                     <div className="divider">OR</div>
                     <button className="btn btn-outline w-full" onClick={() => signInWithGoogle()} >Continue with google</button>
                 </div>
@@ -69,4 +91,4 @@ const Signin = () => {
     );
 };
 
-export default Signin;
+export default Signup;

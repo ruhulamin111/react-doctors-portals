@@ -8,6 +8,8 @@ import Reviews from './pages/Reviews/Reviews';
 import Contactus from './pages/Contactus/Contactus';
 import Signin from './pages/Signin/Signin';
 import Footer from './pages/Footer/Footer';
+import NotFound from './pages/NotFound/NotFound';
+import Signup from './pages/Signin/Signup';
 
 
 function App() {
@@ -22,7 +24,9 @@ function App() {
         <Route path='/reviews' element={<Reviews></Reviews>}></Route>
         <Route path='/contactus' element={<Contactus></Contactus>}></Route>
         <Route path='/signin' element={<Signin></Signin>}></Route>
+        <Route path='/signup' element={<Signup></Signup>}></Route>
 
+        <Route path='*' element={<NotFound></NotFound>}></Route>
       </Routes>
       <Footer></Footer>
 
