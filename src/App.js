@@ -10,6 +10,7 @@ import Signin from './pages/Signin/Signin';
 import Footer from './pages/Footer/Footer';
 import NotFound from './pages/NotFound/NotFound';
 import Signup from './pages/Signin/Signup';
+import RequireAuth from './pages/RequireAuth/RequireAuth';
 
 
 function App() {
@@ -19,7 +20,9 @@ function App() {
       <Routes>
         <Route path='/' element={<Home></Home>}></Route>
         <Route path='/home' element={<Home></Home>}></Route>
-        <Route path='/appointment' element={<Appointment></Appointment>}></Route>
+        <Route path='/appointment' element={<RequireAuth>
+          <Appointment></Appointment>
+        </RequireAuth>}></Route>
         <Route path='/about' element={<About></About>}></Route>
         <Route path='/reviews' element={<Reviews></Reviews>}></Route>
         <Route path='/contactus' element={<Contactus></Contactus>}></Route>

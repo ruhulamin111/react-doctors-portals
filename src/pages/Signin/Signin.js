@@ -1,14 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import { useForm } from "react-hook-form";
 import Loading from '../Loading/Loading';
 
 const Signin = () => {
-    const [signInWithGoogle, gUser, gLoadding] = useSignInWithGoogle(auth);
-    const [signInWithEmailAndPassword, user, loading] = useSignInWithEmailAndPassword(auth);
+    const [signInWithGoogle, gUser, gLoadding, gError] = useSignInWithGoogle(auth);
+    const [signInWithEmailAndPassword, user, loading, error] = useSignInWithEmailAndPassword(auth);
     const { register, formState: { errors }, handleSubmit } = useForm();
+    const navigate = useNavigate()
+    const location = useLocation()
+    const from = location?.state?.from?.pathname || '/';
+    let userError;
+    if (gError || error) {
+        userError = <p>{gError?.message || error?.message}</p>
+    }
     if (gLoadding || loading) {
         return <Loading></Loading>
     }
@@ -16,6 +23,7 @@ const Signin = () => {
     const onSubmit = (data) => {
         console.log(data)
         signInWithEmailAndPassword(data.email, data.password)
+        navigate(from, { replace: true })
     };
 
     // const handleSubmit = (event) => {
@@ -65,6 +73,7 @@ const Signin = () => {
                         </div>
 
                         <input type='submit' value='Sign in' className="btn btn-accent w-full mt-4"></input>
+                        {userError}
                     </form>
                     <p className='pt-2'>New to Doctors Portals? <Link className='text-secondary' to='/signup'>Create an account</Link></p>
                     <div className="divider">OR</div>
