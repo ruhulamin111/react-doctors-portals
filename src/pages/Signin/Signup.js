@@ -3,11 +3,20 @@ import { Link } from 'react-router-dom';
 import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import { useForm } from "react-hook-form";
+import Loading from '../Loading/Loading';
 
 const Signup = () => {
-    const [signInWithGoogle] = useSignInWithGoogle(auth);
-    const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
+    const [signInWithGoogle, gUser, gLoadding] = useSignInWithGoogle(auth);
+    const [createUserWithEmailAndPassword, user, loading] = useCreateUserWithEmailAndPassword(auth);
     const { register, formState: { errors }, handleSubmit } = useForm();
+    if (gLoadding || loading) {
+        return <Loading></Loading>
+    }
+
+    const onSubmit = (data) => {
+        console.log(data)
+        createUserWithEmailAndPassword(data.email, data.password)
+    };
 
     // const handleSubmit = (event) => {
     //     event.preventDefault()
@@ -18,12 +27,7 @@ const Signup = () => {
     //         createUserWithEmailAndPassword(email, password)
     //         event.target.reset()
     //     }
-    // }
-
-    const onSubmit = (data) => {
-        console.log(data)
-    };
-
+    // } 
 
     return (
         <div className='flex justify-center items-center'>
@@ -54,7 +58,7 @@ const Signup = () => {
                             <input type="password" placeholder="Password" className="input input-bordered w-full max-w-xs"
                                 {...register("password", {
                                     required: { value: true, message: 'Password is required' },
-                                    pattern: { value: /{>>8,20}/, message: 'Password is more than 8 character' }
+                                    pattern: { value: /(?=.*[!@#$%^&*])/, message: 'Password is at least one speacial character' }
                                 })}
                             />
                             <label className="label">
@@ -67,10 +71,10 @@ const Signup = () => {
                             <label className="label">
                                 <span className="label-text">Confirm Password </span>
                             </label>
-                            <input type="text" placeholder="Email" className="input input-bordered w-full max-w-xs"
+                            <input type="password" placeholder="Email" className="input input-bordered w-full max-w-xs"
                                 {...register("confirmpassword", {
                                     required: { value: true, message: 'Confirm password is required' },
-                                    pattern: { value: /{>>8,20}/, message: 'Password is not match' }
+                                    pattern: { value: /(?=.*[!@#$%^&*])/, message: 'Password is not match' }
                                 })}
                             />
                             <label className="label">

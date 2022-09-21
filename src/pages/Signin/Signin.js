@@ -3,12 +3,20 @@ import { Link } from 'react-router-dom';
 import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import { useForm } from "react-hook-form";
-
-
+import Loading from '../Loading/Loading';
 
 const Signin = () => {
-    const [signInWithGoogle] = useSignInWithGoogle(auth);
-    const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
+    const [signInWithGoogle, gUser, gLoadding] = useSignInWithGoogle(auth);
+    const [signInWithEmailAndPassword, user, loading] = useSignInWithEmailAndPassword(auth);
+    const { register, formState: { errors }, handleSubmit } = useForm();
+    if (gLoadding || loading) {
+        return <Loading></Loading>
+    }
+
+    const onSubmit = (data) => {
+        console.log(data)
+        signInWithEmailAndPassword(data.email, data.password)
+    };
 
     // const handleSubmit = (event) => {
     //     event.preventDefault()
@@ -17,15 +25,13 @@ const Signin = () => {
     //     signInWithEmailAndPassword(email, password)
     //     event.target.reset()
     // }
-    const { register, formState: { errors }, handleSubmit } = useForm();
-
 
     return (
         <div className='flex justify-center h-screen items-center'>
             <div className="card w-96 bg-base-100 shadow-xl py-4">
                 <div className="card-body items-center text-center">
                     <h2 className="card-title mb-4">Sign in</h2>
-                    <form onSubmit={handleSubmit} className=' space-'>
+                    <form onSubmit={handleSubmit(onSubmit)} className=' w-full'>
                         <div className="form-control ">
                             <label className="label">
                                 <span className="label-text">Email </span>
@@ -49,7 +55,7 @@ const Signin = () => {
                             <input type="password" placeholder="Password" className="input input-bordered w-full max-w-xs"
                                 {...register("password", {
                                     required: { value: true, message: 'Password is required' },
-                                    pattern: { value: /{>>8,20}/, message: 'Password is more than 8 character' }
+                                    pattern: { value: /(?=.*[!@#$%^&*])/, message: 'Password is at least one speacial character' }
                                 })}
                             />
                             <label className="label">
