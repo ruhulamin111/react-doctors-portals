@@ -6,6 +6,7 @@ const BookModal = ({ date, book, setBook }) => {
     const handleSubmit = (event) => {
         event.preventDefault()
         const booking = {
+            date: format(date, 'PP'),
             slot: event.target.slot.value,
             serviceName: book.name,
             bookingId: book._id,
@@ -22,11 +23,14 @@ const BookModal = ({ date, book, setBook }) => {
         })
             .then(res => res.json())
             .then(data => {
-                toast('Your booking is confirem')
+                console.log(data);
+                if (data.success) {
+                    toast('Your appintment is confirm for booked')
+                } else {
+                    toast.error('You have already booking an appointment')
+                }
+                setBook(null)
             })
-        setBook(null)
-        event.target.reset()
-        console.log('submit');
     }
 
     return (
