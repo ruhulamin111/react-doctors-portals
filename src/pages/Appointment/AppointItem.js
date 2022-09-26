@@ -13,7 +13,7 @@ const AppointItem = ({ service, setBook }) => {
                         disabled={service.slots.length === 0}
                         className="btn btn-primary"
                         onClick={() => setBook(service)}
-                    >Buy Now</label>
+                    >Booking now</label>
                 </div>
             </div>
         </div>

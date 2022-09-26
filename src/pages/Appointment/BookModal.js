@@ -1,16 +1,32 @@
 import React from 'react';
 import { format } from 'date-fns';
+import { toast } from 'react-toastify';
 
 const BookModal = ({ date, book, setBook }) => {
     const handleSubmit = (event) => {
         event.preventDefault()
-        const slot = event.target.slot.value;
-        const name = event.target.name.value;
-        const phone = event.target.phone.value;
-        const email = event.target.email.value;
-        const bookitem = book.name;
-        console.log(slot, name, phone, email, bookitem);
+        const booking = {
+            slot: event.target.slot.value,
+            serviceName: book.name,
+            bookingId: book._id,
+            patientName: event.target.name.value,
+            phone: event.target.phone.value,
+            email: event.target.email.value
+        }
+        fetch('http://localhost:5000/bookings', {
+            method: "POST",
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(booking)
+        })
+            .then(res => res.json())
+            .then(data => {
+                toast('Your booking is confirem')
+            })
         setBook(null)
+        event.target.reset()
+        console.log('submit');
     }
 
     return (
