@@ -8,12 +8,13 @@ import BookModal from './BookModal';
 const BookAppointment = ({ date }) => {
     const [services, setServices] = useState([])
     const [book, setBook] = useState(null)
+    const formattedDate = format(date, 'PP')
 
     useEffect(() => {
-        fetch('http://localhost:5000/services')
+        fetch(`http://localhost:5000/available?date=${formattedDate}`)
             .then(res => res.json())
             .then(data => setServices(data))
-    }, [])
+    }, [formattedDate])
 
     return (
         <div className='w-11/12 mx-auto'>

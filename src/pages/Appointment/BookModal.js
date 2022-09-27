@@ -1,8 +1,11 @@
 import React from 'react';
 import { format } from 'date-fns';
 import { toast } from 'react-toastify';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init';
 
 const BookModal = ({ date, book, setBook }) => {
+    const [user] = useAuthState(auth)
     const handleSubmit = (event) => {
         event.preventDefault()
         const booking = {
@@ -23,7 +26,6 @@ const BookModal = ({ date, book, setBook }) => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 if (data.success) {
                     toast('Your appintment is confirm for booked')
                 } else {
@@ -47,7 +49,7 @@ const BookModal = ({ date, book, setBook }) => {
                         </select>
                         <input name='name' type="text" placeholder="Name" className="input input-bordered w-full max-w-xs" required />
                         <input name='phone' type="number" placeholder="Phone" className="input input-bordered w-full max-w-xs" required />
-                        <input name='email' type="email" placeholder="Email" className="input input-bordered w-full max-w-xs" required />
+                        <input name='email' type="email" value={user.email} readOnly className="input input-bordered w-full max-w-xs" required />
                         <input type="submit" value="Submit" className="input input-bordered w-full max-w-xs btn btn-primary" />
                     </form>
 
