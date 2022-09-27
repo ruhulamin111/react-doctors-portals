@@ -19,7 +19,8 @@ const Navbar = () => {
                         <li><Link to='/about'>About</Link></li>
                         <li><Link to='/appointment'>Appointment</Link></li>
                         <li><Link to='/reviews'>Reviews</Link></li>
-                        <li><Link to='/contactus'>Contact us</Link></li>
+                        <li><Link to='/contactus'>Contact</Link></li>
+                        {user && <li><Link to='/dashboard'>Dashboard</Link></li>}
                         <li>{user ? <Link to='' onClick={() => signOut(auth)}>Sign Out</Link> : <Link to='/signin'>Sign in</Link>}</li>
                     </ul>
                 </div>
@@ -31,7 +32,8 @@ const Navbar = () => {
                     <li><Link to='/about'>About</Link></li>
                     <li><Link to='/appointment'>Appointment</Link></li>
                     <li><Link to='/reviews'>Reviews</Link></li>
-                    <li><Link to='/contactus'>Contact us</Link></li>
+                    <li><Link to='/contactus'>Contact </Link></li>
+                    {user && <li><Link to='/dashboard'>Dashboard</Link></li>}
                     <li>{user ? <Link to='' onClick={() => signOut(auth)}>Sign Out</Link> : <Link to='/signin'>Sign in</Link>}</li>
                 </ul>
             </div>

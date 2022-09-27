@@ -14,7 +14,7 @@ const BookAppointment = ({ date }) => {
         fetch(`http://localhost:5000/available?date=${formattedDate}`)
             .then(res => res.json())
             .then(data => setServices(data))
-    }, [formattedDate])
+    }, [formattedDate, services])
 
     return (
         <div className='w-11/12 mx-auto'>
