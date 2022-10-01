@@ -32,6 +32,7 @@ const MyAppoint = () => {
                 <table className="table w-full">
                     <thead>
                         <tr>
+                            <th>No</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Service</th>
@@ -43,6 +44,7 @@ const MyAppoint = () => {
                         {
                             appointment.map((item, index) =>
                                 <tr key={index}>
+                                    <td>{index + 1}</td>
                                     <td>{item.patientName}</td>
                                     <td>{item.email}</td>
                                     <td>{item.serviceName}</td>
