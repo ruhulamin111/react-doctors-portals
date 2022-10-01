@@ -12,7 +12,7 @@ const MyAppoint = () => {
             .then(res => res.json())
             .then(data => setAppointment(data))
     }, [user.email, user])
-    console.log(appointment);
+
     return (
         <div>
             <div className="overflow-x-auto">

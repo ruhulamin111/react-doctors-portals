@@ -4,24 +4,28 @@ import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-fi
 import auth from '../../firebase.init';
 import { useForm } from "react-hook-form";
 import Loading from '../Loading/Loading';
+import useToken from '../../hooks/useToken';
 
 const Signup = () => {
     const [signInWithGoogle, gUser, gLoadding] = useSignInWithGoogle(auth);
     const [createUserWithEmailAndPassword, user, loading] = useCreateUserWithEmailAndPassword(auth);
+    const [token] = useToken(user || gUser)
     const { register, formState: { errors }, handleSubmit } = useForm();
     const navigate = useNavigate()
     const location = useLocation()
     const from = location?.state?.from?.pathname || '/';
+
     if (gLoadding || loading) {
         return <Loading></Loading>
     }
-    const onSubmit = (data) => {
-        console.log(data)
-        createUserWithEmailAndPassword(data.email, data.password)
-    };
-    if (user || gUser) {
+    if (token) {
         navigate(from, { replace: true })
     }
+
+    const onSubmit = (data) => {
+        createUserWithEmailAndPassword(data.email, data.password)
+    };
+
     // const handleSubmit = (event) => {
     //     event.preventDefault()
     //     const email = event.target.email.value;
