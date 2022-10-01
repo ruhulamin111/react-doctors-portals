@@ -3,7 +3,7 @@ import React from 'react';
 const Review = () => {
     return (
         <div>
-            <h1>review</h1>
+            <h1 className='text-xl'>review</h1>
 
         </div>
     );
