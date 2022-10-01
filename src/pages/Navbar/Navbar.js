@@ -21,7 +21,10 @@ const Navbar = () => {
                         <li><Link to='/reviews'>Reviews</Link></li>
                         <li><Link to='/contactus'>Contact</Link></li>
                         {user && <li><Link to='/dashboard'>Dashboard</Link></li>}
-                        <li>{user ? <Link to='' onClick={() => signOut(auth)}>Sign Out</Link> : <Link to='/signin'>Sign in</Link>}</li>
+                        <li>{user ? <Link to='' onClick={() => {
+                            signOut(auth)
+                            localStorage.removeItem('token')
+                        }}>Sign Out</Link> : <Link to='/signin'>Sign in</Link>}</li>
                     </ul>
                 </div>
                 <Link className="btn btn-ghost normal-case text-2xl font-medium" to='/'>Doctors Portals</Link>
@@ -42,7 +45,7 @@ const Navbar = () => {
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                 </label>
             </div>
-        </div>
+        </div >
     );
 };
 

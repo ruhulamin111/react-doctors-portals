@@ -2,16 +2,29 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
+
 
 const MyAppoint = () => {
     const [user] = useAuthState(auth)
     const [appointment, setAppointment] = useState([])
+    const navigate = useNavigate()
     useEffect(() => {
-        fetch(`http://localhost:5000/booking?email=${user.email}`)
-            .then(res => res.json())
+        fetch(`http://localhost:5000/booking?email=${user.email}`, {
+            method: 'GET',
+            headers: {
+                'authorization': `${localStorage.getItem('token')}`
+            }
+        })
+            .then(res => {
+                if (res.status === 401 || res.status === 403) {
+                    navigate('/home')
+                }
+                return res.json()
+            })
             .then(data => setAppointment(data))
-    }, [user.email, user])
+    }, [user.email, user, navigate])
 
     return (
         <div>
