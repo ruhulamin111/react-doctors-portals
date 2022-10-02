@@ -1,18 +1,41 @@
 import React from 'react';
 import { useQuery } from 'react-query';
+import { toast } from 'react-toastify';
 import Loading from '../Loading/Loading';
 
 const User = () => {
-    const { data: user, isLoading } = useQuery('user', () => fetch('http://localhost:5000/user', {
+    const { data: user, isLoading, refetch } = useQuery('user', () => fetch('http://localhost:5000/user', {
         method: 'GET',
         headers: {
             'authorization': `${localStorage.getItem('token')}`
-        }
+        },
     }).then(res => res.json()))
     if (isLoading) {
         return <Loading></Loading>
-    }
+    };
 
+    const makeAdmin = (select) => {
+        fetch(`http://localhost:5000/user/admin/${select.email}`, {
+            method: 'PUT',
+            headers: {
+                'authorization': `${localStorage.getItem('token')}`
+            }
+        })
+            .then(res => {
+                if (res.status === 403) {
+                    toast.error('You are not selected admin')
+                }
+                return res.json()
+            })
+            .then(data => {
+                if (data.modifiedCount > 0) {
+
+                    refetch();
+                    toast.success('Successfully make an admin');
+                }
+
+            })
+    };
 
     return (
         <div>
@@ -32,7 +55,7 @@ const User = () => {
                                 <tr key={index}>
                                     <td>{index + 1}</td>
                                     <td>{item.email}</td>
-                                    <td><button className="btn btn-xs">Admin</button></td>
+                                    <td>{item.role !== 'admin' && <button onClick={() => makeAdmin(item)} className="btn btn-xs">Admin</button>}</td>
                                     <td><button className="btn btn-xs">Remove</button></td>
                                 </tr>
                             )
