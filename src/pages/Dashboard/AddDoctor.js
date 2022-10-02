@@ -2,10 +2,12 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import Loading from '../Loading/Loading';
 import { useForm } from "react-hook-form";
+import { toast } from 'react-toastify';
 
 const AddDoctor = () => {
     const { data: service, isLoading } = useQuery('service', () => fetch('http://localhost:5000/services').then(res => res.json()));
-    const { register, formState: { errors }, handleSubmit } = useForm();
+
+    const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const imagekey = '79c13bff4cf174d3aee764506ad7de92';
 
     const onSubmit = async data => {
@@ -18,16 +20,33 @@ const AddDoctor = () => {
             body: formData,
         })
             .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    const img = data.url;
+            .then(result => {
+                if (result.success) {
+                    const img = result.data.url;
                     const doctor = {
                         name: data.name,
                         email: data.email,
                         service: data.service,
                         img: img,
                     }
-
+                    console.log('ab', doctor)
+                    fetch('http://localhost:5000/doctors', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json',
+                            'authorization': `${localStorage.getItem('token')}`
+                        },
+                        body: JSON.stringify(doctor)
+                    })
+                        .then(res => res.json())
+                        .then(inserted => {
+                            if (inserted.insertedId) {
+                                toast.success('Successfully added')
+                                reset()
+                            } else {
+                                toast.error('Something else')
+                            }
+                        })
                 }
             })
     }
@@ -67,7 +86,7 @@ const AddDoctor = () => {
                                 })}
                             />
                             <label className="label">
-                                {errors.email?.type === 'required' && <span className="label-text-alt">{errors.password.message}</span>}
+                                {errors.email?.type === 'required' && <span className="label-text-alt">{errors.email.message}</span>}
                             </label>
                         </div>
 
@@ -75,7 +94,7 @@ const AddDoctor = () => {
                             <label className="label">
                                 <span className="label-text">Service</span>
                             </label>
-                            <select type="file" className="input input-bordered w-full max-w-xs"
+                            <select className="input input-bordered w-full max-w-xs"
                                 {...register("service", {
                                     required: { value: true, message: 'File  is required' }
                                 })}
