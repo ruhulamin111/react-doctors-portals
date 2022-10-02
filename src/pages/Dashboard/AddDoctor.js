@@ -29,7 +29,6 @@ const AddDoctor = () => {
                         service: data.service,
                         img: img,
                     }
-                    console.log('ab', doctor)
                     fetch('http://localhost:5000/doctors', {
                         method: 'POST',
                         headers: {
