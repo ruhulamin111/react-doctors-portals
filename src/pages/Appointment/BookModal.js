@@ -13,6 +13,7 @@ const BookModal = ({ date, book, setBook }) => {
             slot: event.target.slot.value,
             serviceName: book.name,
             bookingId: book._id,
+            price: book.price,
             patientName: event.target.name.value,
             phone: event.target.phone.value,
             email: event.target.email.value
@@ -50,6 +51,7 @@ const BookModal = ({ date, book, setBook }) => {
                         <input name='name' type="text" placeholder="Name" className="input input-bordered w-full max-w-xs" required />
                         <input name='phone' type="number" placeholder="Phone" className="input input-bordered w-full max-w-xs" required />
                         <input name='email' type="email" value={user.email} readOnly className="input input-bordered w-full max-w-xs" required />
+                        <input name='price' type="number" value={book.price} readOnly className="input input-bordered w-full max-w-xs" required />
                         <input type="submit" value="Submit" className="input input-bordered w-full max-w-xs btn btn-primary" />
                     </form>
 

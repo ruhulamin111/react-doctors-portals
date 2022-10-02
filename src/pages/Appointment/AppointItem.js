@@ -8,6 +8,7 @@ const AppointItem = ({ service, setBook }) => {
                 <h2 className="card-title">{service.name}</h2>
                 <p>Available Space {service.slots.length}</p>
                 <p>Visit 08:00 AM to 12:00 PM</p>
+                <p className='font-semibold'> Visit Fee: {service.price} $</p>
                 <div className="card-actions justify-end">
                     <label htmlFor='book-modal'
                         disabled={service.slots.length === 0}
