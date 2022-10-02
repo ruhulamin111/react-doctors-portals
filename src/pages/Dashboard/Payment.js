@@ -22,7 +22,6 @@ const Payment = () => {
         return <Loading></Loading>
     }
 
-    console.log(booking);
     return (
         <div>
             <div className="card w-96 bg-base-100 shadow-xl">
@@ -37,7 +36,7 @@ const Payment = () => {
             <div className="card w-96 bg-base-100 shadow-xl mt-5">
                 <div className="card-body">
                     <Elements stripe={stripePromise}>
-                        <CheckoutForm />
+                        <CheckoutForm booking={booking} />
                     </Elements>
                 </div>
             </div>
