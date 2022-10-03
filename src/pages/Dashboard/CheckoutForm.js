@@ -1,18 +1,15 @@
 import React from 'react';
-import {
-    CardElement,
-    Elements,
-    useStripe,
-    useElements,
-} from '@stripe/react-stripe-js';
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
 const CheckoutForm = ({ booking }) => {
-    const { price } = booking;
+    const { price, email, patientName } = booking;
     const stripe = useStripe();
     const elements = useElements();
     const [cardError, setCardError] = useState('')
+    const [success, setSuccess] = useState('')
+    const [transectionId, setTransectionId] = useState('')
     const [clientSecret, setClientSecret] = useState('')
 
     useEffect(() => {
@@ -37,13 +34,37 @@ const CheckoutForm = ({ booking }) => {
             return;
         }
 
+        const card = elements.getElement(CardElement);
         const { error, paymentMethod } = await stripe.createPaymentMethod({
             type: 'card',
-            card: elements.getElement(CardElement),
+            card,
         });
         if (error) {
             setCardError(error?.message || '')
         }
+
+        const { paymentIntent, error: intentError } = await stripe.confirmCardPayment(
+            clientSecret,
+            {
+                payment_method: {
+                    card: card,
+                    billing_details: {
+                        name: patientName,
+                        email: email,
+                    },
+                },
+            },
+        );
+        if (intentError) {
+            setCardError(intentError?.message || '')
+
+        } else {
+            console.log(paymentMethod)
+            setSuccess('Congrats! your payment done.')
+            setTransectionId(paymentIntent.id)
+        }
+
+
     };
 
     return (
@@ -56,7 +77,10 @@ const CheckoutForm = ({ booking }) => {
                 </button>
             </form>
             {
-                cardError && <p>{cardError}</p>
+                cardError && <p className='text-red-500'>{cardError}</p>
+            }
+            {
+                success && <p className='text-green-500'>{success}, {transectionId}</p>
             }
         </>
     );
