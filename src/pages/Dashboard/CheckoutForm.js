@@ -4,12 +4,12 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 
 const CheckoutForm = ({ booking }) => {
-    const { price, email, patientName } = booking;
+    const { _id, price, email, patientName } = booking;
     const stripe = useStripe();
     const elements = useElements();
     const [cardError, setCardError] = useState('')
     const [success, setSuccess] = useState('')
-    const [transectionId, setTransectionId] = useState('')
+    const [transactionId, setTransactionId] = useState('')
     const [clientSecret, setClientSecret] = useState('')
 
     useEffect(() => {
@@ -61,7 +61,21 @@ const CheckoutForm = ({ booking }) => {
         } else {
             console.log(paymentMethod)
             setSuccess('Congrats! your payment done.')
-            setTransectionId(paymentIntent.id)
+            setTransactionId(paymentIntent.id)
+            const payment = {
+                transactionId: paymentIntent.id,
+                appointment: _id
+            }
+            fetch(`http://localhost:5000/bookings/${_id}`, {
+                method: 'PATCH',
+                headers: {
+                    'authorization': `${localStorage.getItem('token')}`,
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(payment)
+            }).then(res => res.json()).then(data => {
+                console.log(data);
+            })
         }
 
 
@@ -80,7 +94,7 @@ const CheckoutForm = ({ booking }) => {
                 cardError && <p className='text-red-500'>{cardError}</p>
             }
             {
-                success && <p className='text-green-500'>{success}, {transectionId}</p>
+                success && <p className='text-green-500'>{success} {transactionId}</p>
             }
         </>
     );
