@@ -11,7 +11,7 @@ const BookAppointment = ({ date }) => {
     const formattedDate = format(date, 'PP')
 
     useEffect(() => {
-        fetch(`http://localhost:5000/available?date=${formattedDate}`)
+        fetch(`https://vast-waters-48657.herokuapp.com/available?date=${formattedDate}`)
             .then(res => res.json())
             .then(data => setServices(data))
     }, [formattedDate, services])

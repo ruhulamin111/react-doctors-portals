@@ -18,7 +18,7 @@ const BookModal = ({ date, book, setBook }) => {
             phone: event.target.phone.value,
             email: event.target.email.value
         }
-        fetch('http://localhost:5000/bookings', {
+        fetch('https://vast-waters-48657.herokuapp.com/bookings', {
             method: "POST",
             headers: {
                 'content-type': 'application/json'

@@ -11,7 +11,7 @@ const MyAppoint = () => {
     const [appointment, setAppointment] = useState([])
     const navigate = useNavigate()
     useEffect(() => {
-        fetch(`http://localhost:5000/booking?email=${user.email}`, {
+        fetch(`https://vast-waters-48657.herokuapp.com/booking?email=${user.email}`, {
             method: 'GET',
             headers: {
                 'authorization': `${localStorage.getItem('token')}`

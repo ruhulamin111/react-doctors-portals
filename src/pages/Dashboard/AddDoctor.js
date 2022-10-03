@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { toast } from 'react-toastify';
 
 const AddDoctor = () => {
-    const { data: service, isLoading } = useQuery('service', () => fetch('http://localhost:5000/services').then(res => res.json()));
+    const { data: service, isLoading } = useQuery('service', () => fetch('https://vast-waters-48657.herokuapp.com/services').then(res => res.json()));
 
     const { register, formState: { errors }, handleSubmit, reset } = useForm();
     const imagekey = '79c13bff4cf174d3aee764506ad7de92';
@@ -29,7 +29,7 @@ const AddDoctor = () => {
                         service: data.service,
                         img: img,
                     }
-                    fetch('http://localhost:5000/doctors', {
+                    fetch('https://vast-waters-48657.herokuapp.com/doctors', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',

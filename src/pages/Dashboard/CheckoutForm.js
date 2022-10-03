@@ -13,7 +13,7 @@ const CheckoutForm = ({ booking }) => {
     const [clientSecret, setClientSecret] = useState('')
 
     useEffect(() => {
-        fetch('http://localhost:5000/create-payment-intent', {
+        fetch('https://vast-waters-48657.herokuapp.com/create-payment-intent', {
             method: 'POST',
             headers: {
                 'authorization': `${localStorage.getItem('token')}`,
@@ -66,7 +66,7 @@ const CheckoutForm = ({ booking }) => {
                 transactionId: paymentIntent.id,
                 appointment: _id
             }
-            fetch(`http://localhost:5000/bookings/${_id}`, {
+            fetch(`https://vast-waters-48657.herokuapp.com/bookings/${_id}`, {
                 method: 'PATCH',
                 headers: {
                     'authorization': `${localStorage.getItem('token')}`,

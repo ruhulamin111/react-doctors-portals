@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import Loading from '../Loading/Loading';
 
 const ManageDoctor = () => {
-    const { data: doctors, isLoading, refetch } = useQuery('doctors', () => fetch('http://localhost:5000/doctors', {
+    const { data: doctors, isLoading, refetch } = useQuery('doctors', () => fetch('https://vast-waters-48657.herokuapp.com/doctors', {
         headers: {
             'authorization': `${localStorage.getItem('token')}`,
         }
@@ -15,7 +15,7 @@ const ManageDoctor = () => {
     }
 
     const deleteDoctor = (item) => {
-        fetch(`http://localhost:5000/doctors/${item.email}`, {
+        fetch(`https://vast-waters-48657.herokuapp.com/doctors/${item.email}`, {
             method: 'DELETE',
             headers: {
                 'authorization': `${localStorage.getItem('token')}`,
